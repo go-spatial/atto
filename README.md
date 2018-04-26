@@ -1,1 +1,3 @@
-swig -go -cgo -intgosize 64 -I/projects/third_party/mapbox-gl-native/include -I/projects/third_party/mapbox-gl-native/platform/default -package mbgl -use-shlib -c++ mbgl.i 
+Atto is a thin Go wrapper for [Mapbox-GL-Native](https://github.com/mapbox/mapbox-gl-native)
+
+It depends on the C99 wraper [mbgl-c](https://github.com/chebizarro/mbgl-c)

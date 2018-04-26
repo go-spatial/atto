@@ -14,7 +14,7 @@ func TestNewMap(t *testing.T) {
     //fileSource.SetAPIBaseUrl("https://osm.tegola.io/")
     threadPool := NewThreadPool(4)
     frontEnd := NewHeadlessFrontend(
-		Size{ 256, 256 },
+		Size{ 512, 512 },
 		pixelRatio,
 		fileSource,
 		threadPool)
@@ -25,7 +25,7 @@ func TestNewMap(t *testing.T) {
 	
     tmap := NewMap(
 		frontEnd,
-		Size{ 256, 256 },
+		Size{ 512, 512 },
 		pixelRatio,
 		fileSource,
 		threadPool,
