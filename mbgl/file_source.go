@@ -1,9 +1,8 @@
 package mbgl
 
-import (
-	"unsafe"
-)
+//#include <core.h>
+import "C"
 
-type FileSource unsafe.Pointer
+type FileSource *C.MbglFileSource
 
 

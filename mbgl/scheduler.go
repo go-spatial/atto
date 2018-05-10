@@ -1,8 +1,7 @@
 package mbgl
 
-import (
-	"unsafe"
-)
+//#include <core.h>
+import "C"
 
-type Scheduler unsafe.Pointer
+type Scheduler *C.MbglScheduler
 

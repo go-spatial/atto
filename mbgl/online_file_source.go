@@ -1,8 +1,7 @@
 package mbgl
 
 /*
-#include <mbgl-c/storage/online_file_source.h>
-#include <stdlib.h>
+#include <core.h>
 */
 import "C"
 
@@ -18,7 +17,7 @@ func NewOnlineFileSource() *OnlineFileSource {
 func (fs *OnlineFileSource) SetAPIBaseUrl(url string) {
 	path := C.CString(url)
 	defer C.free(unsafe.Pointer(path))
-	ofs := _Ctype_struct_MbglOnlineFileSource(*fs)
+	ofs := _Ctype_MbglOnlineFileSource(*fs)
 	C.mbgl_online_file_source_set_api_base_url(
 		&ofs,
 		path)

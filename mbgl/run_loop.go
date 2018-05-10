@@ -1,6 +1,6 @@
 package mbgl
 /*
-#include <mbgl-c/util/run_loop.h>
+#include <core.h>
 */
 import "C"
 

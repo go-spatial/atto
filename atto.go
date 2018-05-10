@@ -9,10 +9,10 @@ import (
 func main() {
     
     /*
-    fileSource := storage.NewOnlineFileSource()
-    threadPool := util.NewThreadPool(4)
-    frontEnd := gl.NewHeadLessFrontend({ width, height }, pixelRatio, fileSource, threadPool)
-    var _map = NewMap(frontEnd, frontEnd.GetSize(), pixelRatio, fileSource, threadPool, map_mode.Static)
+    fileSource := NewOnlineFileSource()
+    threadPool := NewThreadPool(4)
+    frontEnd := NewHeadLessFrontend({ width, height }, pixelRatio, fileSource, threadPool)
+    _map := NewMap(frontEnd, frontEnd.GetSize(), pixelRatio, fileSource, threadPool, map_mode.Static)
     
     _map.GetStyle().LoadURL(style)
     _map.SetLatLngZoom({ lat, lon }, zoom)

@@ -1,8 +1,7 @@
 package mbgl
 
 /*
-#include <mbgl-c/storage/default_file_source.h>
-#include <stdlib.h>
+#include <core.h>
 */
 import "C"
 

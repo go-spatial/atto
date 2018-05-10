@@ -10,17 +10,14 @@ package mbgl
 #cgo CFLAGS: -DRAPIDJSON_HAS_STDSTRING=1 -D_GLIBCXX_USE_CXX11_ABI=1 -DUCHAR_TYPE=char16_t
 #cgo CFLAGS: -I../../mbgl-c/include
 #cgo CFLAGS: -fPIC
-#include <mbgl-c/map/map.h>
-#include <mbgl-c/map/map_observer.h>
+#include <core.h>
 */
 import "C"
-
-import "unsafe"
 
 type Map C.MbglMap
 
 func NewMap(
-	renderer RendererFrontend,
+	renderer *RendererFrontend,
 	size Size,
 	pixelRatio float32,
 	source FileSource,
@@ -30,12 +27,12 @@ func NewMap(
 	viewportMode uint32) *Map {
 	
 	nmap := Map(*C.mbgl_map_new(
-		unsafe.Pointer(renderer),
+		renderer,
 		C.mbgl_map_observer_null_observer(),
 		_Ctype_struct_MbglSize(size),
 		_Ctype_float(pixelRatio),
-		unsafe.Pointer(source),
-		unsafe.Pointer(scheduler),
+		source,
+		scheduler,
 		_Ctype_MbglMapMode(mapMode),
 		_Ctype_MbglConstrainMode(constrainMode),
 		_Ctype_MbglViewportMode(viewportMode)))

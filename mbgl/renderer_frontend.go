@@ -1,8 +1,7 @@
 package mbgl
 
-import (
-	"unsafe"
-)
+//#include <core.h>
+import "C"
 
-type RendererFrontend unsafe.Pointer
+type RendererFrontend C.MbglRendererFrontend
 

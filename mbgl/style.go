@@ -1,6 +1,6 @@
 package mbgl
 /*
-#include <mbgl-c/style/style.h>
+#include <core.h>
 */
 import "C"
 

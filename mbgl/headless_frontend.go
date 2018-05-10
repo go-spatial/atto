@@ -1,11 +1,8 @@
 package mbgl
 /*
-#include <mbgl-c/gl/headless_frontend.h>
-#include <mbgl-c/util/size.h>
+#include <core.h>
 */
 import "C"
-
-import "unsafe"
 
 type HeadlessFrontend C.MbglHeadlessFrontend
 
@@ -13,7 +10,7 @@ func NewHeadlessFrontend(size Size, pixelRatio float32, fileSource FileSource, s
 	hf := HeadlessFrontend(*C.mbgl_headless_frontend_new(
 		_Ctype_struct_MbglSize(size),
 		_Ctype_float(pixelRatio),
-		unsafe.Pointer(&fileSource),
-		unsafe.Pointer(&scheduler)))
+		fileSource,
+		scheduler))
 	return &hf
 }

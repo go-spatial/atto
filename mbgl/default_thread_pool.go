@@ -1,6 +1,6 @@
 package mbgl
 /*
-#include <mbgl-c/util/default_thread_pool.h>
+#include <core.h>
 */
 import "C"
 
