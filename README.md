@@ -1,3 +1,6 @@
-Atto is a thin Go wrapper for [Mapbox-GL-Native](https://github.com/mapbox/mapbox-gl-native)
+#### Atto
 
-It depends on the C99 wraper [mbgl-c](https://github.com/chebizarro/mbgl-c)
+Atto uses [Mapbox-GL-Native](https://github.com/mapbox/mapbox-gl-native) and [gofpdf](https://github.com/jung-kurt/gofpdf) to render Mapbox vector tiles to PDF files.
+
+1. Download and build [Mapbox-GL-Native](https://github.com/mapbox/mapbox-gl-native) for your platform.
+

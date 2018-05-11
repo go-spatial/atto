@@ -1,7 +1,7 @@
 package mbgl
 
 /*
-#include <core.h>
+#include <mbgl.h>
 */
 import "C"
 

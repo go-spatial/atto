@@ -3,14 +3,15 @@ package mbgl
 /*
 #cgo LDFLAGS: -lstdc++
 #cgo LDFLAGS: -L../deps/lib
-#cgo LDFLAGS: -lmbgl-c -lmbgl-filesource -lmbgl-loop-uv -lmbgl-core
+#cgo LDFLAGS: -lmbgl-filesource -lmbgl-loop-uv -lmbgl-core
 #cgo LDFLAGS: -luv -lrt -lpthread -lnsl -ldl -lsqlite3 -lcurl -lGL -lX11 -lnu -lpng16 -lz -lm -ljpeg -lwebp -licuuc -ldl
 #cgo LDFLAGS: -L/usr/lib/x86_64-linux-gnu
 #cgo CXXFLAGS: -std=c++14 -g -std=gnu++14
 #cgo CFLAGS: -DRAPIDJSON_HAS_STDSTRING=1 -D_GLIBCXX_USE_CXX11_ABI=1 -DUCHAR_TYPE=char16_t
-#cgo CFLAGS: -I../../mbgl-c/include
+#cgo CXXFLAGS: -I/home/bizarro/Documents/Projects/ThirdParty/mapbox-gl-native/include
+#cgo CXXFLAGS: -I/home/bizarro/Documents/Projects/ThirdParty/mapbox-gl-native/platform/default
 #cgo CFLAGS: -fPIC
-#include <core.h>
+#include <mbgl.h>
 */
 import "C"
 
