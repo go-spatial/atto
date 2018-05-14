@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 CMD bash
 
+# Install the toolchain to build mapbox-gl-native
 RUN apt-get update && apt-get -y install \
   apt-utils \
   build-essential \
@@ -33,24 +34,31 @@ RUN apt-get update && apt-get -y install \
   libxcursor-dev \
   libxinerama-dev
 
+# Clone and build mapbox-gl-native
+RUN mkdir -p /opt/src/github.com/mapbox
+RUN git -C /opt/src/github.com/mapbox clone https://github.com/mapbox/mapbox-gl-native.git
+RUN cd /opt/src/github.com/mapbox/mapbox-gl-native && \
+	BUILDTYPE=Release make linux-core
+
+# Clone and build mason-js
+RUN git -C /opt/src/github.com/mapbox clone https://github.com/mapbox/mason-js.git && \
+	cd /opt/src/github.com/mapbox/mason-js && \
+	npm install && \
+	npm link
+
+# Get the latest Go binary
 RUN curl -o /tmp/go.tar.gz https://storage.googleapis.com/golang/go1.10.1.linux-amd64.tar.gz
 RUN tar -xf /tmp/go.tar.gz -C /usr/local/bin
 ENV GOPATH=/opt/
 
-RUN mkdir -p /opt/src/github.com/mapbox
-RUN git -C /opt/src/github.com/mapbox clone https://github.com/mapbox/mapbox-gl-native.git
-RUN cd /opt/src/github.com/mapbox/mapbox-gl-native && \
-	make linux-core
 
 ENV CFLAGS="-I/opt/src/github.com/mapbox/mapbox-gl-native/include -I/opt/src/github.com/mapbox/mapbox-gl-native/platform/default"
 
-
-RUN git clone https://github.com/mapbox/mason-js.git && \
-	cd mason-js && \
-	npm install && \
-	npm link
-
-
 ADD . /opt/src/github.com/go-spatial/atto
-RUN cd /opt/src/github.com/go-spatial/atto && make
+RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages /opt/src/github.com/go-spatial/atto
+RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/build/linux-x86_64/Release/*.a /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages/.link/lib/
+RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/include/mbgl /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages/.link/include/
+RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/platform/default/mbgl /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages/.link/include/
+CWD /opt/src/github.com/go-spatial/atto
+RUN mason-js link
 
