@@ -41,10 +41,12 @@ RUN cd /opt/src/github.com/mapbox/mapbox-gl-native && \
 	BUILDTYPE=Release make linux-core
 
 # Clone and build mason-js
-RUN git -C /opt/src/github.com/mapbox clone https://github.com/mapbox/mason-js.git && \
-	cd /opt/src/github.com/mapbox/mason-js && \
-	npm install && \
-	npm link
+RUN npm cache clean -f
+RUN npm install -g n
+RUN n stable
+RUN git -C /opt/src/github.com/mapbox clone https://github.com/mapbox/mason-js.git
+WORKDIR /opt/src/github.com/mapbox/mason-js/
+RUN npm install && npm link
 
 # Get the latest Go binary
 RUN curl -o /tmp/go.tar.gz https://storage.googleapis.com/golang/go1.10.1.linux-amd64.tar.gz
@@ -52,13 +54,16 @@ RUN tar -xf /tmp/go.tar.gz -C /usr/local/bin
 ENV GOPATH=/opt/
 
 
-ENV CFLAGS="-I/opt/src/github.com/mapbox/mapbox-gl-native/include -I/opt/src/github.com/mapbox/mapbox-gl-native/platform/default"
-
 ADD . /opt/src/github.com/go-spatial/atto
-RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages /opt/src/github.com/go-spatial/atto
-RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/build/linux-x86_64/Release/*.a /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages/.link/lib/
-RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/include/mbgl /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages/.link/include/
-RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/platform/default/mbgl /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages/.link/include/
-CWD /opt/src/github.com/go-spatial/atto
+WORKDIR /opt/src/github.com/go-spatial/atto
+
+RUN mason-js install
 RUN mason-js link
+
+RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/build/linux-x86_64/Release/*.a /opt/src/github.com/go-spatial/atto/mason_packages/.link/lib/
+RUN cp -r /opt/src/github.com/mapbox/mapbox-gl-native/include/mbgl /opt/src/github.com/go-spatial/atto/mason_packages/.link/include/
+RUN cp -r /opt/src/github.com/mapbox/mapbox-gl-native/platform/default/mbgl /opt/src/github.com/go-spatial/atto/mason_packages/.link/include/
+
+
+ENV CFLAGS="-I/opt/src/github.com/mapbox/mapbox-gl-native/include -I/opt/src/github.com/mapbox/mapbox-gl-native/platform/default"
 
