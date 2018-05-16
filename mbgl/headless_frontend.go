@@ -10,7 +10,7 @@ func NewHeadlessFrontend(size Size, pixelRatio float32, fileSource FileSource, s
 	hf := HeadlessFrontend(*C.mbgl_headless_frontend_new(
 		_Ctype_struct_MbglSize(size),
 		_Ctype_float(pixelRatio),
-		fileSource,
-		scheduler))
+		fileSource.(*_Ctype_struct_MbglFileSource),
+		scheduler.(*C.MbglScheduler)))
 	return &hf
 }
