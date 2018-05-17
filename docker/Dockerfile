@@ -57,13 +57,11 @@ ENV GOPATH=/opt/
 ADD . /opt/src/github.com/go-spatial/atto
 WORKDIR /opt/src/github.com/go-spatial/atto
 
+RUN cp -r /opt/src/github.com/mapbox/mapbox-gl-native/mason_packages .
 RUN mason-js install
 RUN mason-js link
 
 RUN cp /opt/src/github.com/mapbox/mapbox-gl-native/build/linux-x86_64/Release/*.a /opt/src/github.com/go-spatial/atto/mason_packages/.link/lib/
 RUN cp -r /opt/src/github.com/mapbox/mapbox-gl-native/include/mbgl /opt/src/github.com/go-spatial/atto/mason_packages/.link/include/
 RUN cp -r /opt/src/github.com/mapbox/mapbox-gl-native/platform/default/mbgl /opt/src/github.com/go-spatial/atto/mason_packages/.link/include/
-
-
-ENV CFLAGS="-I/opt/src/github.com/mapbox/mapbox-gl-native/include -I/opt/src/github.com/mapbox/mapbox-gl-native/platform/default"
-
+RUN go build
