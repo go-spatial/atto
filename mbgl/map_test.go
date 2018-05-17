@@ -8,11 +8,17 @@ func TestNewMap(t *testing.T) {
 
 	var pixelRatio float32
 	pixelRatio = 1.0
+	
 	NewRunLoop()
+    
     fileSource := NewDefaultFileSource("testdata/cache.sqlite", ".")
+    defer fileSource.Destroy()
     //fileSource := NewOnlineFileSource()
     //fileSource.SetAPIBaseUrl("https://osm.tegola.io/")
+    
     threadPool := NewThreadPool(4)
+    defer threadPool.Destroy()
+    
     frontEnd := NewHeadlessFrontend(
 		Size{ 512, 512 },
 		pixelRatio,

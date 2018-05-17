@@ -7,5 +7,6 @@ import "C"
 
 type Scheduler interface {
 	cPtr() uintptr
+	Destroy()
 }
 
