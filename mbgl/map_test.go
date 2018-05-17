@@ -25,6 +25,8 @@ func TestNewMap(t *testing.T) {
 		fileSource,
 		threadPool)
 
+	defer frontEnd.Destroy()
+
 	if &frontEnd.cptr == nil {
 		t.Fatal("NewHeadlessFronted returned nil")
 	}	

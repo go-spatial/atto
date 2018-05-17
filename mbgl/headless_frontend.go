@@ -13,6 +13,10 @@ func (h HeadlessFrontend) cPtr() uintptr {
 	return h.cptr
 }
 
+func (h HeadlessFrontend) Destroy() {
+	C.mbgl_headless_frontend_destroy(C.MbglHeadlessFrontend(h.cptr))
+}
+
 func (h HeadlessFrontend) Reset() {
 	C.mbgl_headless_frontend_reset(C.MbglHeadlessFrontend(h.cptr))
 }
