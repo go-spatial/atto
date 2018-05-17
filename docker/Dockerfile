@@ -35,9 +35,6 @@ RUN apt-get update && apt-get -y install \
   libxinerama-dev \
   xvfb
 
-ENV DISPLAY=:99
-RUN Xvfb :99 -screen 0 640x480x8 -nolisten tcp
-
 # Clone and build mapbox-gl-native
 RUN mkdir -p /opt/src/github.com/mapbox
 RUN git -C /opt/src/github.com/mapbox clone https://github.com/mapbox/mapbox-gl-native.git
