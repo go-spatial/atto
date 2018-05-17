@@ -6,8 +6,11 @@ import (
 
 func TestNewOnlineFileSource(t *testing.T) {
 	
-	NewRunLoop()
+	loop := NewRunLoop()
+	defer loop.Destroy()
+	
 	fs := NewOnlineFileSource()
+	defer fs.Destroy()
 	
 	if &fs.cptr == nil {
 		t.Fatal("NewOnlineFileSource returned nil")
