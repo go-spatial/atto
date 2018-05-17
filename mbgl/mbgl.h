@@ -24,7 +24,7 @@ extern "C"{
  *
  * Many exotic languages can interoperate with C code but have a harder time
  * with C++ due to name mangling. So in addition to C, this interface enables
- * tools written in such languages.
+ * tools written in such languages as Go.
  *
  * @{
  */
