@@ -18,11 +18,11 @@
 
 using namespace mbgl;
 
-MbglLatLng mbgl_lat_long_new(double lat, double lon) {
+MbglLatLng mbgl_lat_lng_new(double lat, double lon) {
 	return reinterpret_cast<MbglLatLng>(new LatLng(lat, lon));
 }
 
-void mbgl_lat_long_destroy(MbglLatLng self) {
+void mbgl_lat_lng_destroy(MbglLatLng self) {
 	delete reinterpret_cast<LatLng*>(self);
 }
 

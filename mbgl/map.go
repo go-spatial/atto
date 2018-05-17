@@ -40,3 +40,19 @@ func (m Map) Destroy() {
 func (m Map) GetStyle() Style {
 	return Style{ uintptr(C.mbgl_map_get_style(C.MbglMap(m.cptr))) }
 }
+
+func (m Map) SetLatLng(latLng LatLng, zoom float32) {
+	C.mbgl_map_set_lat_lng_zoom(C.MbglMap(m.cptr), C.MbglLatLng(latLng.cptr), C.double(zoom))
+}
+
+func (m Map) SetBearing(degrees float32) {
+	C.mbgl_map_set_bearing(C.MbglMap(m.cptr), C.double(degrees))
+}
+
+func (m Map) SetPitch(pitch float32) {
+	C.mbgl_map_set_pitch(C.MbglMap(m.cptr), C.double(pitch))
+}
+
+func (m Map) SetDebug(debugOptions MapDebugOptions) {
+	C.mbgl_map_set_debug(C.MbglMap(m.cptr), C.MbglMapDebugOptions(debugOptions))
+}

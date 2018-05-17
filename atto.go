@@ -17,7 +17,7 @@ func main() {
     
     defer pmap.Destroy()
     
-    pmap.GetStyle().LoadURL(style)
+    //pmap.GetStyle().LoadURL(style)
     pmap.SetLatLngZoom({ lat, lon }, zoom)
     pmap.SetBearing(bearing)
     pmap.SetPitch(pitch)

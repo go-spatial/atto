@@ -72,9 +72,9 @@ typedef enum MbglMapDebugOptions {
  * @{
  */
 
-MbglLatLng mbgl_lat_long_new(double lat, double lon);
+MbglLatLng mbgl_lat_lng_new(double lat, double lon);
 
-void mbgl_lat_long_destroy(MbglLatLng self);
+void mbgl_lat_lng_destroy(MbglLatLng self);
 
 /**
  * @}
