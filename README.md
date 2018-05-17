@@ -12,3 +12,4 @@ Atto uses [Mapbox-GL-Native](https://github.com/mapbox/mapbox-gl-native) and [go
 
 5. `go build` to build...
 
+There is a Dockerfile in /docker which details the steps required to set up a build and runtime environment for Atto.
