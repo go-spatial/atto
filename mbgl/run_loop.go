@@ -1,12 +1,18 @@
 package mbgl
+
 /*
 #include <mbgl.h>
 */
 import "C"
 
-type RunLoop C.MbglRunLoop
+type RunLoop struct {
+	cptr uintptr
+}
 
-func NewRunLoop() *RunLoop {
-	rl := RunLoop(*C.mbgl_run_loop_new())
-	return &rl
+func (r RunLoop) cPtr() uintptr {
+	return r.cptr
+}
+
+func NewRunLoop() RunLoop {
+	return RunLoop{ uintptr(C.mbgl_run_loop_new()) }
 }

@@ -1,14 +1,18 @@
 package mbgl
+
 /*
 #include <mbgl.h>
 */
 import "C"
 
-type ThreadPool C.MbglThreadPool
+type ThreadPool struct {
+	cptr uintptr
+}
 
-func NewThreadPool(count int) *ThreadPool {
-	
-	tp := ThreadPool(*C.mbgl_thread_pool_new(C.size_t(count)));
+func (tp ThreadPool) cPtr() uintptr {
+	return tp.cptr
+}
 
-	return &tp
+func NewThreadPool(count int) ThreadPool {
+	return ThreadPool{ uintptr(C.mbgl_thread_pool_new(C.size_t(count))) };
 }

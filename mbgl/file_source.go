@@ -1,8 +1,10 @@
 package mbgl
 
-//#include <mbgl.h>
+/*
+#include <mbgl.h>
+*/
 import "C"
 
-type FileSource interface {}
-
-
+type FileSource interface {
+	cPtr() uintptr	
+}

@@ -7,40 +7,35 @@
 extern "C"{
 #endif
 
-typedef struct MbglScheduler MbglScheduler;
+typedef void *MbglScheduler;
+typedef void *MbglThreadPool;
 
-struct MbglRendererFrontend;
-typedef struct MbglRendererFrontend MbglRendererFrontend;
-typedef struct MbglRendererFrontend MbglHeadlessFrontend;
+typedef void *MbglRendererFrontend;
+typedef void *MbglHeadlessFrontend;
 
-typedef struct MbglMap MbglMap;
+typedef void *MbglMap;
 
-typedef struct MbglMapObserver MbglMapObserver;
+typedef void *MbglMapObserver;
 
-struct MbglFileSource;
-typedef struct MbglFileSource MbglFileSource;
-typedef struct MbglFileSource MbglDefaultFileSource;
-typedef struct MbglFileSource MbglOnlineFileSource;
+typedef void *MbglFileSource;
+typedef void *MbglDefaultFileSource;
+typedef void *MbglOnlineFileSource;
 
-typedef struct MbglScheduler MbglThreadPool;
+typedef void *MbglLatLng;
 
-struct MbglLatLng;
-typedef struct MbglLatLng MbglLatLng;
+typedef void *MbglImage;
+typedef void *MbglPremultipliedImage;
 
-struct MbglImage;
-typedef struct MbglImage MbglImage;
-typedef struct MbglImage MbglPremultipliedImage;
+typedef void *MbglRunLoop;
 
-typedef struct MbglRunLoop MbglRunLoop;
+typedef void *MbglStyle;
 
-typedef struct MbglStyle MbglStyle;
-
-struct MbglSize {
+struct _MbglSize {
 	uint32_t width;
 	uint32_t height;
 };
 
-typedef struct MbglSize MbglSize;
+typedef struct _MbglSize MbglSize;
 
 
 #ifdef __cplusplus

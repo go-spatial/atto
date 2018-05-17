@@ -19,7 +19,7 @@ func TestNewMap(t *testing.T) {
 		fileSource,
 		threadPool)
 
-	if frontEnd == nil {
+	if &frontEnd.cptr == nil {
 		t.Fatal("NewHeadlessFronted returned nil")
 	}	
 	
@@ -31,7 +31,7 @@ func TestNewMap(t *testing.T) {
 		threadPool,
 		0, 0, 0)
 		
-	if tmap == nil {
+	if &tmap.cptr == nil {
 		t.Fatal("NewMap returned nil")
 	}
 }

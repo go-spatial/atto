@@ -5,7 +5,9 @@ package mbgl
 */
 import "C"
 
-type Map C.MbglMap
+type Map struct {
+	cptr uintptr
+}
 
 func NewMap(
 	renderer RendererFrontend,
@@ -15,23 +17,22 @@ func NewMap(
 	scheduler Scheduler,
 	mapMode uint32,
 	constrainMode uint32,
-	viewportMode uint32) *Map {
+	viewportMode uint32) Map {
 	
-	nmap := Map(*C.mbgl_map_new(
-		renderer.(*C.MbglRendererFrontend),
+	nmap := C.mbgl_map_new(
+		C.MbglRendererFrontend(renderer.cPtr()),
 		C.mbgl_map_observer_null_observer(),
-		_Ctype_struct_MbglSize(size),
-		_Ctype_float(pixelRatio),
-		source.(*C.MbglFileSource),
-		scheduler.(*C.MbglScheduler),
-		_Ctype_MbglMapMode(mapMode),
-		_Ctype_MbglConstrainMode(constrainMode),
-		_Ctype_MbglViewportMode(viewportMode)))
+		C.MbglSize(size),
+		C.float(pixelRatio),
+		C.MbglFileSource(source.cPtr()),
+		C.MbglScheduler(scheduler.cPtr()),
+		C.MbglMapMode(mapMode),
+		C.MbglConstrainMode(constrainMode),
+		C.MbglViewportMode(viewportMode))
 	
-	return &nmap
+	return Map{ uintptr(nmap) }
 }
 
-func (m *Map) GetStyle() Style {
-	cmap := _Ctype_struct_MbglMap(*m)
-	return Style(*C.mbgl_map_get_style(&cmap))
+func (m Map) GetStyle() Style {
+	return Style{ uintptr(C.mbgl_map_get_style(C.MbglMap(m.cptr))) }
 }

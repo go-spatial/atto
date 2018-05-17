@@ -1,7 +1,12 @@
 package mbgl
 
-//#include <mbgl.h>
+/*
+#include <mbgl.h>
+*/
 import "C"
 
-type RendererFrontend interface {}
+type RendererFrontend interface {
+	cPtr() uintptr
+	Reset()
+}
 

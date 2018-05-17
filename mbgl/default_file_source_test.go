@@ -8,7 +8,7 @@ func TestNewFileSource(t *testing.T) {
 
     fileSource := NewDefaultFileSource("testdata/cache.sqlite", ".")
 
-	if fileSource == nil {
+	if &fileSource.cptr == nil {
 		t.Fatal("NewDefaultFileSource returned nil")
 	}	
 }

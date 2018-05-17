@@ -1,16 +1,28 @@
 package mbgl
+
 /*
 #include <mbgl.h>
 */
 import "C"
 
-type HeadlessFrontend C.MbglHeadlessFrontend
+type HeadlessFrontend struct {
+	cptr uintptr
+}
 
-func NewHeadlessFrontend(size Size, pixelRatio float32, fileSource FileSource, scheduler Scheduler) *HeadlessFrontend {
-	hf := HeadlessFrontend(*C.mbgl_headless_frontend_new(
-		_Ctype_struct_MbglSize(size),
-		_Ctype_float(pixelRatio),
-		fileSource.(*_Ctype_struct_MbglFileSource),
-		scheduler.(*C.MbglScheduler)))
-	return &hf
+func (h HeadlessFrontend) cPtr() uintptr {
+	return h.cptr
+}
+
+func (h HeadlessFrontend) Reset() {
+	C.mbgl_headless_frontend_reset(C.MbglHeadlessFrontend(h.cptr))
+}
+
+func NewHeadlessFrontend(size Size, pixelRatio float32, fileSource FileSource, scheduler Scheduler) HeadlessFrontend {
+	f:= C.mbgl_headless_frontend_new(
+		C.MbglSize(size),
+		C.float(pixelRatio),
+		C.MbglFileSource(fileSource.cPtr()),
+		C.MbglScheduler(scheduler.cPtr()))
+	hf := HeadlessFrontend{uintptr(f)}
+	return hf
 }

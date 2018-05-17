@@ -1,7 +1,11 @@
 package mbgl
 
-//#include <mbgl.h>
+/*
+#include <mbgl.h>
+*/
 import "C"
 
-type Scheduler interface {}
+type Scheduler interface {
+	cPtr() uintptr
+}
 

@@ -7,18 +7,25 @@ import "C"
 
 import "unsafe"
 
-type OnlineFileSource C.MbglOnlineFileSource
-
-func NewOnlineFileSource() *OnlineFileSource {
-	ofs := OnlineFileSource(*C.mbgl_online_file_source_new())
-	return &ofs
+//type OnlineFileSource C.MbglOnlineFileSource
+type OnlineFileSource struct {
+	cptr uintptr
 }
 
-func (fs *OnlineFileSource) SetAPIBaseUrl(url string) {
+func (o OnlineFileSource) cPtr() uintptr {
+	return o.cptr
+}
+
+func NewOnlineFileSource() OnlineFileSource {
+	ofs := OnlineFileSource{uintptr(C.mbgl_online_file_source_new())}
+	return ofs
+}
+
+func (o OnlineFileSource) SetAPIBaseUrl(url string) {
 	path := C.CString(url)
 	defer C.free(unsafe.Pointer(path))
-	ofs := _Ctype_MbglOnlineFileSource(*fs)
+	ofs := C.MbglOnlineFileSource(o.cptr)
 	C.mbgl_online_file_source_set_api_base_url(
-		&ofs,
+		ofs,
 		path)
 }
