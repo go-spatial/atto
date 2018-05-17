@@ -1,3 +1,4 @@
-deps
+atto
 mbgl/*.test
 mason_packages
+out.png

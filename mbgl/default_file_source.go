@@ -26,3 +26,10 @@ func NewDefaultFileSource(cachePath string, assetRoot string) DefaultFileSource 
 	dfs := DefaultFileSource{ uintptr(C.mbgl_default_file_source_new(cpath, aroot)) }
 	return dfs
 }
+
+func (h DefaultFileSource) SetAccessToken(token string) {
+	ctoken := C.CString(token)
+	defer C.free(unsafe.Pointer(ctoken))
+
+	C.mbgl_default_file_source_set_access_token(C.MbglDefaultFileSource(h.cptr), ctoken)
+}

@@ -22,7 +22,7 @@ func NewMap(
 	nmap := C.mbgl_map_new(
 		C.MbglRendererFrontend(renderer.cPtr()),
 		C.mbgl_map_observer_null_observer(),
-		C.MbglSize(size),
+		C.MbglSize{C.uint32_t(size.Width), C.uint32_t(size.Height)},
 		C.float(pixelRatio),
 		C.MbglFileSource(source.cPtr()),
 		C.MbglScheduler(scheduler.cPtr()),
@@ -41,7 +41,7 @@ func (m Map) GetStyle() Style {
 	return Style{ uintptr(C.mbgl_map_get_style(C.MbglMap(m.cptr))) }
 }
 
-func (m Map) SetLatLng(latLng LatLng, zoom float32) {
+func (m Map) SetLatLngZoom(latLng LatLng, zoom float32) {
 	C.mbgl_map_set_lat_lng_zoom(C.MbglMap(m.cptr), C.MbglLatLng(latLng.cptr), C.double(zoom))
 }
 
