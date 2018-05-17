@@ -15,9 +15,9 @@ func NewMap(
 	pixelRatio float32,
 	source FileSource,
 	scheduler Scheduler,
-	mapMode uint32,
-	constrainMode uint32,
-	viewportMode uint32) Map {
+	mapMode MapMode,
+	constrainMode ConstrainMode,
+	viewportMode ViewportMode) Map {
 	
 	nmap := C.mbgl_map_new(
 		C.MbglRendererFrontend(renderer.cPtr()),
