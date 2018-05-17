@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	//"github.com/jung-kurt/gofpdf"
 
 	"github.com/go-spatial/atto/mbgl"
@@ -15,8 +16,8 @@ func main() {
     loop := mbgl.NewRunLoop()
     defer loop.Destroy()
     
-	token := "pk.eyJ1IjoiY2FzY2FkaWF0bSIsImEiOiJjamZ0enI4MGwzczljMnhxb3VuZGRkNDVyIn0.KhAJn5M1T6IWbnFS1xnrwA"
-
+	token := os.GetEnv("MAPBOX_ACCESS_TOKEN")
+	
     fileSource := mbgl.NewDefaultFileSource("mbgl/testdata/cache.sqlite", ".")
     fileSource.SetAccessToken(token)
     defer fileSource.Destroy()
