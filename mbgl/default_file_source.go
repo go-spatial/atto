@@ -14,6 +14,10 @@ func (h DefaultFileSource) cPtr() uintptr {
 	return h.cptr
 }
 
+func (h DefaultFileSource) Destroy() {
+	C.mbgl_default_file_source_destroy(C.MbglDefaultFileSource(h.cptr))
+}
+
 func NewDefaultFileSource(cachePath string, assetRoot string) DefaultFileSource {
 	cpath := C.CString(cachePath)
 	aroot := C.CString(assetRoot)
@@ -22,4 +26,3 @@ func NewDefaultFileSource(cachePath string, assetRoot string) DefaultFileSource 
 	dfs := DefaultFileSource{ uintptr(C.mbgl_default_file_source_new(cpath, aroot)) }
 	return dfs
 }
-

@@ -16,6 +16,10 @@ func (o OnlineFileSource) cPtr() uintptr {
 	return o.cptr
 }
 
+func (o OnlineFileSource) Destroy() {
+	C.mbgl_online_file_source_destroy(C.MbglOnlineFileSource(o.cptr))
+}
+
 func NewOnlineFileSource() OnlineFileSource {
 	ofs := OnlineFileSource{uintptr(C.mbgl_online_file_source_new())}
 	return ofs

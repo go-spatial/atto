@@ -6,5 +6,6 @@ package mbgl
 import "C"
 
 type FileSource interface {
-	cPtr() uintptr	
+	cPtr() uintptr
+	Destroy()
 }
