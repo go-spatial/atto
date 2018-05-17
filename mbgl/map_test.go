@@ -9,13 +9,16 @@ func TestNewMap(t *testing.T) {
 	var pixelRatio float32
 	pixelRatio = 1.0
 	
-	NewRunLoop()
+	// The RunLoop is a hidden dependency of ThreadPool
+	loop := NewRunLoop()
+    defer loop.Destroy()
     
-    fileSource := NewDefaultFileSource("testdata/cache.sqlite", ".")
-    defer fileSource.Destroy()
     //fileSource := NewOnlineFileSource()
     //fileSource.SetAPIBaseUrl("https://osm.tegola.io/")
-    
+
+    fileSource := NewDefaultFileSource("testdata/cache.sqlite", ".")
+    defer fileSource.Destroy()
+        
     threadPool := NewThreadPool(4)
     defer threadPool.Destroy()
     
@@ -38,7 +41,9 @@ func TestNewMap(t *testing.T) {
 		fileSource,
 		threadPool,
 		0, 0, 0)
-		
+	
+	defer tmap.Destroy()
+	
 	if &tmap.cptr == nil {
 		t.Fatal("NewMap returned nil")
 	}

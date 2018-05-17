@@ -33,6 +33,10 @@ func NewMap(
 	return Map{ uintptr(nmap) }
 }
 
+func (m Map) Destroy() {
+	C.mbgl_map_destroy(C.MbglMap(m.cptr))
+}
+
 func (m Map) GetStyle() Style {
 	return Style{ uintptr(C.mbgl_map_get_style(C.MbglMap(m.cptr))) }
 }
