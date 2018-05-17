@@ -10,7 +10,5 @@ package mbgl
 #cgo LDFLAGS: -lstdc++
 #cgo LDFLAGS: -lmbgl-filesource -lmbgl-loop-uv -lmbgl-core
 #cgo LDFLAGS: -luv -lrt -lpthread -lnsl -ldl -lsqlite3 -lcurl -lGL -lX11 -lnu -lpng16 -lz -lm -ljpeg -lwebp -licuuc -ldl
-#cgo CXXFLAGS: -I/home/bizarro/Documents/Projects/ThirdParty/mapbox-gl-native/include
-#cgo CXXFLAGS: -I/home/bizarro/Documents/Projects/ThirdParty/mapbox-gl-native/platform/default
 */
 import "C"
