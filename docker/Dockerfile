@@ -32,7 +32,11 @@ RUN apt-get update && apt-get -y install \
   x11proto-xf86vidmode-dev \
   libxxf86vm-dev \
   libxcursor-dev \
-  libxinerama-dev
+  libxinerama-dev \
+  xvfb
+
+ENV DISPLAY=:99
+RUN Xvfb :99 -screen 0 640x480x8 -nolisten tcp
 
 # Clone and build mapbox-gl-native
 RUN mkdir -p /opt/src/github.com/mapbox
@@ -52,7 +56,7 @@ RUN npm install && npm link
 RUN curl -o /tmp/go.tar.gz https://storage.googleapis.com/golang/go1.10.1.linux-amd64.tar.gz
 RUN tar -xf /tmp/go.tar.gz -C /usr/local/bin
 ENV GOPATH=/opt/
-
+ENV PATH=$PATH:/usr/local/bin/go/bin
 
 ADD . /opt/src/github.com/go-spatial/atto
 WORKDIR /opt/src/github.com/go-spatial/atto

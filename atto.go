@@ -16,7 +16,7 @@ func main() {
     loop := mbgl.NewRunLoop()
     defer loop.Destroy()
     
-	token := os.GetEnv("MAPBOX_ACCESS_TOKEN")
+	token := os.Getenv("MAPBOX_ACCESS_TOKEN")
 	
     fileSource := mbgl.NewDefaultFileSource("mbgl/testdata/cache.sqlite", ".")
     fileSource.SetAccessToken(token)
