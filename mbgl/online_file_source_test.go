@@ -6,8 +6,9 @@ import (
 
 func TestNewOnlineFileSource(t *testing.T) {
 	
+	// The Online File Source requires a Run Loop
 	loop := NewRunLoop()
-	defer loop.Destroy()
+    defer loop.Destroy()
 	
 	fs := NewOnlineFileSource()
 	defer fs.Destroy()
