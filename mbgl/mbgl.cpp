@@ -190,6 +190,15 @@ void mbgl_thread_pool_destroy(MbglThreadPool self) {
 }
 
 
+MbglSize mbgl_image_get_size(MbglImage self) {
+	auto size = reinterpret_cast<Image*>(self)->size;
+	return { size.width, size.height };
+}
+
+uint8_t[]* mbgl_image_get_data(MbglImage self) {
+	return reinterpret_cast<Image*>(self)->data;
+}
+
 const char* mbgl_encode_png(MbglPremultipliedImage image) {
 	return encodePNG(reinterpret_cast<const PremultipliedImage&>(image)).c_str();
 }
