@@ -96,7 +96,7 @@ void mbgl_headless_frontend_destroy(MbglHeadlessFrontend self);
 
 void mbgl_headless_frontend_reset(MbglHeadlessFrontend self);
 
-const char* mbgl_headless_frontend_render(MbglHeadlessFrontend self, MbglMap map);
+MbglPremultipliedImage mbgl_headless_frontend_render(MbglHeadlessFrontend self, MbglMap map);
 
 void mbgl_headless_frontend_render_to_file(MbglHeadlessFrontend self, MbglMap map, const char* path);
 
@@ -220,7 +220,7 @@ size_t mbgl_image_get_stride(MbglImage self);
 
 size_t mbgl_image_get_bytes(MbglImage self);
 
-uint8_t[]* mbgl_image_get_data(MbglImage self);
+unsigned char* mbgl_image_get_data(MbglImage self);
 
 const char* mbgl_encode_png(MbglPremultipliedImage image);
 

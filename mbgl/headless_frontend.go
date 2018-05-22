@@ -23,10 +23,13 @@ func (h HeadlessFrontend) Reset() {
 	C.mbgl_headless_frontend_reset(C.MbglHeadlessFrontend(h.cptr))
 }
 
-func (h HeadlessFrontend) Render(_map Map) []byte {
-	C.mbgl_headless_frontend_render(
+
+func (h HeadlessFrontend) Render(_map Map) *Image {
+	img := C.mbgl_headless_frontend_render(
 		C.MbglHeadlessFrontend(h.cptr),
 		C.MbglMap(_map.cptr))
+	
+	return newImage(uintptr(img))
 }
 
 func (h HeadlessFrontend) RenderToFile(_map Map, path string) {
