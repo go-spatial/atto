@@ -64,5 +64,5 @@ func main() {
 	
 	image := frontEnd.Render(pmap)
 	
-	pdf(image, *outputFlag)
+	pdf(EncodePNG(image), *outputFlag)
 }

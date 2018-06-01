@@ -40,7 +40,7 @@ func (i *Image) ColorModel() color.Model {
 
 func (i *Image) Bounds() image.Rectangle {
 	size := i.Size
-	return image.Rect(0,size.Height,0,size.Width)
+	return image.Rect(0,int(size.Height),0,int(size.Width))
 }
 
 /*
@@ -60,10 +60,10 @@ func (i Image) GetSize() Size {
 */
 
 func EncodePNG(img *Image) []byte {
+	var size C.size_t
+	image = C.mbgl_encode_png(C.MbglPremultipliedImage(img.cptr), &size)
 	
-	img = C.mbgl_encode_png(C.MbglPremultipliedImage(C.Mbglimg.cptr))
-	
-	slice := (*[1 << 30]byte)(unsafe.Pointer(&img))[:8:8]
+	slice := (*[1 << 30]byte)(unsafe.Pointer(&image))[:int(size):int(size)]
 	
 	return slice
 

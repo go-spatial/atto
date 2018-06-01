@@ -222,7 +222,7 @@ size_t mbgl_image_get_bytes(MbglImage self);
 
 unsigned char* mbgl_image_get_data(MbglImage self);
 
-const char* mbgl_encode_png(MbglPremultipliedImage image);
+const char* mbgl_encode_png(MbglPremultipliedImage image, size_t* size);
 
 /**
  * @}

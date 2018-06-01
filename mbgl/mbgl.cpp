@@ -52,8 +52,8 @@ void mbgl_headless_frontend_destroy(MbglHeadlessFrontend self) {
 
 MbglPremultipliedImage mbgl_headless_frontend_render(MbglHeadlessFrontend self, MbglMap map) {
 	auto mp = reinterpret_cast<Map*>(map);
-	//return encodePNG(reinterpret_cast<HeadlessFrontend*>(self)->render(*mp)).c_str();
-	return reinterpret_cast<MbglPremultipliedImage>(reinterpret_cast<HeadlessFrontend*>(self)->render(*mp));
+	auto image = encodePNG(reinterpret_cast<HeadlessFrontend*>(self)->render(*mp));
+	return reinterpret_cast<MbglPremultipliedImage>(&image);
 
 }
 
@@ -208,7 +208,9 @@ size_t mbgl_image_get_bytes(MbglImage self) {
 	return reinterpret_cast<PremultipliedImage*>(self)->bytes();	
 }
 
-const char* mbgl_encode_png(MbglPremultipliedImage image) {
+const char* mbgl_encode_png(MbglPremultipliedImage image, size_t* size) {
+	auto img = encodePNG(reinterpret_cast<const PremultipliedImage&>(image));
+	*size = img.length();
 	return encodePNG(reinterpret_cast<const PremultipliedImage&>(image)).c_str();
 }
 

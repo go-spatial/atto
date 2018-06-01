@@ -16,7 +16,7 @@ const (
 
 func pdf(image []byte, filename string) {
 		
-	pdf := gofpdf.New("P", "mm", "A4", "")
+	pdf := gofpdf.New("L", "mm", "A4", "")
 	pdf.AddPage()
 	pdf.SetFont("Helvetica", "", fontSize)
 	ln := pdf.PointConvert(fontSize)
