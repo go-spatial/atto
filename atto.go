@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"runtime"
+	"bytes"
+	"image/png"
 	
 	"github.com/go-spatial/atto/mbgl"
 )
@@ -20,7 +22,7 @@ func main() {
 	bearingFlag := flag.Float64("b", 0, "Bearing for the generated image")
 	latFlag := flag.Float64("lat", 39.153, "Latitude for the generated image")
 	lngFlag := flag.Float64("lng", -76.275, "Longtitude for the generated image")
-	outputFlag := flag.String("o", "out.png", "File name for the generated image")
+	outputFlag := flag.String("o", "out.pdf", "File name for the generated image")
 	
 	flag.Parse()
 	
@@ -49,7 +51,7 @@ func main() {
 	
 	pmap.GetStyle().LoadURL(*styelUrlFlag)
 	
-	latLng := mbgl.NewLatLng(float32(*latFlag),float32(*lngFlag))
+	latLng := mbgl.NewLatLng(*latFlag,*lngFlag)
 	defer latLng.Destroy()
 		
 	pmap.SetLatLngZoom(latLng, zoom)
@@ -63,6 +65,9 @@ func main() {
 	//frontEnd.RenderToFile(pmap, *outputFlag)
 	
 	image := frontEnd.Render(pmap)
+	var buf bytes.Buffer
+
+	png.Encode(&buf, image)
 	
-	pdf(EncodePNG(image), *outputFlag)
+	pdf(buf.Bytes(), *outputFlag)
 }

@@ -3,6 +3,7 @@ package mbgl
 import (
 	"os"
 	"testing"
+	"bytes"
 	"image/png"
 )
 
@@ -46,18 +47,14 @@ var pixelRatio float32 = 1
 	image := frontEnd.Render(pmap)
 	defer image.Destroy()
 
-	f, err := os.Create("out.png")
-	if err != nil {
+	var b bytes.Buffer
+
+	if err := png.Encode(&b, image); err != nil {
 		t.Fatal(err)
 	}
-
-	if err := png.Encode(f, image); err != nil {
-		f.Close()
-		t.Fatal(err)
-	}
-
-	if err := f.Close(); err != nil {
-		t.Fatal(err)
+	
+	if b.Len() == 0 {
+		t.Fatal("Image is 0 size")
 	}
 	
 }

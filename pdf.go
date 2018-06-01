@@ -15,18 +15,19 @@ const (
 
 
 func pdf(image []byte, filename string) {
-		
-	pdf := gofpdf.New("L", "mm", "A4", "")
+	
+	msgStr := "Hello World"
+	pdf := gofpdf.New("P", "mm", "A4", "")
 	pdf.AddPage()
 	pdf.SetFont("Helvetica", "", fontSize)
 	ln := pdf.PointConvert(fontSize)
 	pdf.MultiCell(wd-margin-margin, ln, msgStr, "", "L", false)
 
-	infoPtr := pdf.RegisterImageReader("map", "image/png", bytes.NewReader(image))
+	infoPtr := pdf.RegisterImageOptionsReader("map", gofpdf.ImageOptions{ "PNG", true }, bytes.NewReader(image))
 	
 	if pdf.Ok() {
 		imgWd, imgHt := infoPtr.Extent()
-		pdf.Image(urlStr, (wd-imgWd)/2.0, pdf.GetY()+ln,
+		pdf.Image("map", (wd-imgWd)/2.0, pdf.GetY()+ln,
 			imgWd, imgHt, false, "image/png", 0, "")
 	}
 	
