@@ -214,6 +214,8 @@ void mbgl_thread_pool_destroy(MbglThreadPool self);
  * @{
  */
 
+void mbgl_image_destroy(MbglImage self);
+
 MbglSize mbgl_image_get_size(MbglImage self);
 
 size_t mbgl_image_get_stride(MbglImage self);

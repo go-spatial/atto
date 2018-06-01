@@ -23,11 +23,9 @@ func newImage(ptr uintptr) *Image {
 	length := C.mbgl_image_get_bytes(C.MbglImage(ptr))
 	carray := C.mbgl_image_get_data(C.MbglImage(ptr))
 	
-	slice := (*[1 << 30]byte)(unsafe.Pointer(carray))[:length:length]
-	
 	img := Image{
 		cptr: ptr,
-		data: slice,
+		data: C.GoBytes(unsafe.Pointer(carray), C.int(length)),
 		Size: Size{uint32(csize.width), uint32(csize.height)},
 	}
 	
@@ -40,31 +38,31 @@ func (i *Image) ColorModel() color.Model {
 
 func (i *Image) Bounds() image.Rectangle {
 	size := i.Size
-	return image.Rect(0,int(size.Height),0,int(size.Width))
+	return image.Rect(0,0,int(size.Width),int(size.Height))
+}
+
+func (i *Image) At(x, y int) color.Color {
+	
+	stride := i.Size.Width * 4
+	
+	row := y * int(stride)
+	col := x * 4
+	idx := row + col
+	
+	return color.RGBA{i.data[idx], i.data[idx+1], i.data[idx+2], i.data[idx+3]}
+}
+
+func (i *Image) Destroy() {
+	C.mbgl_image_destroy(C.MbglImage(i.cptr))
 }
 
 /*
-func (i Image) At(x, y int) color.Color {
-	
-	return color.RGBA()
-}
-
-
-func (i Image) getIndex(x, y int) int {
-	
-}
-
-func (i Image) GetSize() Size {
-	
-}
-*/
-
 func EncodePNG(img *Image) []byte {
 	var size C.size_t
-	image = C.mbgl_encode_png(C.MbglPremultipliedImage(img.cptr), &size)
+	png := C.mbgl_encode_png(C.MbglPremultipliedImage(img.cptr), &size)
 	
-	slice := (*[1 << 30]byte)(unsafe.Pointer(&image))[:int(size):int(size)]
+	slice := (*[1 << 30]byte)(unsafe.Pointer(&img))[:int(size):int(size)]
 	
 	return slice
 
-}
+}*/
