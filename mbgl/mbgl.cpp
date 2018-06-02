@@ -50,10 +50,10 @@ void mbgl_headless_frontend_destroy(MbglHeadlessFrontend self) {
 	delete reinterpret_cast<HeadlessFrontend*>(self);
 }
 
-const char* mbgl_headless_frontend_render(MbglHeadlessFrontend self, MbglMap map) {
+MbglPremultipliedImage mbgl_headless_frontend_render(MbglHeadlessFrontend self, MbglMap map) {
 	auto mp = reinterpret_cast<Map*>(map);
-	return encodePNG(reinterpret_cast<HeadlessFrontend*>(self)->render(*mp)).c_str();
-
+	auto image = new PremultipliedImage(reinterpret_cast<HeadlessFrontend*>(self)->render(*mp));
+	return reinterpret_cast<MbglPremultipliedImage>(image);
 }
 
 void mbgl_headless_frontend_render_to_file(MbglHeadlessFrontend self, MbglMap map, const char* path) {
@@ -190,7 +190,30 @@ void mbgl_thread_pool_destroy(MbglThreadPool self) {
 }
 
 
-const char* mbgl_encode_png(MbglPremultipliedImage image) {
+void mbgl_image_destroy(MbglImage self) {
+	delete reinterpret_cast<PremultipliedImage*>(self);
+}
+
+MbglSize mbgl_image_get_size(MbglImage self) {
+	auto size = reinterpret_cast<PremultipliedImage*>(self)->size;
+	return { size.width, size.height };
+}
+
+unsigned char* mbgl_image_get_data(MbglImage self) {
+	return &reinterpret_cast<PremultipliedImage*>(self)->data[0];
+}
+
+size_t mbgl_image_get_stride(MbglImage self) {
+	return reinterpret_cast<PremultipliedImage*>(self)->stride();
+}
+
+size_t mbgl_image_get_bytes(MbglImage self) {
+	return reinterpret_cast<PremultipliedImage*>(self)->bytes();	
+}
+
+const char* mbgl_encode_png(MbglPremultipliedImage image, size_t* size) {
+	auto img = encodePNG(reinterpret_cast<const PremultipliedImage&>(image));
+	*size = img.length();
 	return encodePNG(reinterpret_cast<const PremultipliedImage&>(image)).c_str();
 }
 

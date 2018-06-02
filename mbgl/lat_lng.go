@@ -13,7 +13,7 @@ func (l LatLng) cPtr() uintptr {
 	return l.cptr
 }
 
-func NewLatLng(lat, lon float32) LatLng {
+func NewLatLng(lat, lon float64) LatLng {
 	return LatLng { uintptr(C.mbgl_lat_lng_new(C.double(lat), C.double(lon))) }
 }
 
