@@ -43,7 +43,6 @@ func (i *Image) Bounds() image.Rectangle {
 func (i *Image) At(x, y int) color.Color {
 	
 	stride := i.Size.Width * 4
-	
 	row := y * int(stride)
 	col := x * 4
 	idx := row + col
