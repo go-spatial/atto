@@ -65,8 +65,9 @@ func main() {
 	//frontEnd.RenderToFile(pmap, *outputFlag)
 	
 	image := frontEnd.Render(pmap)
+	defer image.Destroy()
+	
 	var buf bytes.Buffer
-
 	png.Encode(&buf, image)
 	
 	pdf(buf.Bytes(), *outputFlag)

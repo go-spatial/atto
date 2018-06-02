@@ -11,15 +11,15 @@ type Style struct {
 	cptr uintptr
 }
 
-func (s Style) cPtr() uintptr {
+func (s *Style) cPtr() uintptr {
 	return s.cptr
 }
 
-func (s Style) Destroy() {
+func (s *Style) Destroy() {
 	C.mbgl_style_destroy(C.MbglStyle(s.cptr))
 }
 
-func (s Style) LoadURL(url string) {
+func (s *Style) LoadURL(url string) {
 	curl := C.CString(url)
 	defer C.free(unsafe.Pointer(curl))
 

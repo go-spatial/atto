@@ -37,8 +37,7 @@ func (i *Image) ColorModel() color.Model {
 }
 
 func (i *Image) Bounds() image.Rectangle {
-	size := i.Size
-	return image.Rect(0,0,int(size.Width),int(size.Height))
+	return image.Rect(0,0,int(i.Size.Width),int(i.Size.Height))
 }
 
 func (i *Image) At(x, y int) color.Color {
