@@ -23,7 +23,7 @@ func pdf(image []byte, filename string) {
 	ln := pdf.PointConvert(fontSize)
 	pdf.MultiCell(wd-margin-margin, ln, msgStr, "", "L", false)
 
-	infoPtr := pdf.RegisterImageOptionsReader("map", gofpdf.ImageOptions{ "PNG", true }, bytes.NewReader(image))
+	infoPtr := pdf.RegisterImageOptionsReader("map", gofpdf.ImageOptions{ "PNG", true, false }, bytes.NewReader(image))
 	
 	if pdf.Ok() {
 		imgWd, imgHt := infoPtr.Extent()

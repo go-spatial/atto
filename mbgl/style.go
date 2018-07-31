@@ -19,7 +19,7 @@ func (s *Style) Destroy() {
 	C.mbgl_style_destroy(C.MbglStyle(s.cptr))
 }
 
-func (s *Style) LoadURL(url string) {
+func (s Style) LoadURL(url string) {
 	curl := C.CString(url)
 	defer C.free(unsafe.Pointer(curl))
 

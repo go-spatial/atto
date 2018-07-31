@@ -7,8 +7,14 @@ package mbgl
 #cgo CXXFLAGS: -g
 #cgo CXXFLAGS: -I../mason_packages/.link/include
 #cgo LDFLAGS: -L../mason_packages/.link/lib
-#cgo LDFLAGS: -lstdc++
-#cgo LDFLAGS: -lmbgl-filesource -lmbgl-loop-uv -lmbgl-core
-#cgo LDFLAGS: -luv -lrt -lpthread -lnsl -ldl -lsqlite3 -lcurl -lGL -lX11 -lnu -lpng16 -lz -lm -ljpeg -lwebp -licuuc -ldl
-*/
+#cgo LDFLAGS: -lsqlite3 -lz
+ */
 import "C"
+
+/*
+// not necessary in mac
+-luv -lpthread -ldl -lcurl -lnu -lpng16 -lm -ljpeg -lwebp -licuuc -ldl
+
+//breaks mac
+-lrt -lnsl -lGL -lX11
+ */

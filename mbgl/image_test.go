@@ -1,7 +1,6 @@
 package mbgl
 
 import (
-	"os"
 	"testing"
 	"bytes"
 	"image/png"
@@ -13,11 +12,8 @@ var pixelRatio float32 = 1
     
     loop := NewRunLoop()
     defer loop.Destroy()
-    
-	token := os.Getenv("MAPBOX_ACCESS_TOKEN")
 	
     fileSource := NewDefaultFileSource("testdata/cache.sqlite", ".")
-    fileSource.SetAccessToken(token)
     defer fileSource.Destroy()
 
     threadPool := NewThreadPool(4)
@@ -31,7 +27,7 @@ var pixelRatio float32 = 1
     pmap := NewMap(frontEnd, size, pixelRatio, fileSource, threadPool, Static, HeightOnly, Default)
     defer pmap.Destroy()
     
-    pmap.GetStyle().LoadURL("mapbox://styles/mapbox/satellite-v9")
+    pmap.GetStyle().LoadURL("https://osm.tegola.io/maps/osm/style.json")
     
     latLng := NewLatLng(0,0)
     defer latLng.Destroy()
